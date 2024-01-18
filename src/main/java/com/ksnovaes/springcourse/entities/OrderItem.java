@@ -2,7 +2,6 @@ package com.ksnovaes.springcourse.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ksnovaes.springcourse.entities.pk.OrderItemPK;
-import jakarta.persistence.Embedded;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -15,7 +14,7 @@ import java.util.Objects;
 public class OrderItem implements Serializable {
     @EmbeddedId
     private OrderItemPK id = new OrderItemPK();
-    private Integer quantiy;
+    private Integer quantity;
     private Double price;
 
     public OrderItem() {}
@@ -23,7 +22,7 @@ public class OrderItem implements Serializable {
     public OrderItem(Order order, Product product, Integer quantiy, Double price) {
         id.setOrder(order);
         id.setProduct(product);
-        this.quantiy = quantiy;
+        this.quantity = quantiy;
         this.price = price;
     }
     @JsonIgnore
@@ -43,12 +42,12 @@ public class OrderItem implements Serializable {
         id.setProduct(product);
     }
 
-    public Integer getQuantiy() {
-        return quantiy;
+    public Integer getQuantity() {
+        return quantity;
     }
 
-    public void setQuantiy(Integer quantiy) {
-        this.quantiy = quantiy;
+    public void setQuantity(Integer quantiy) {
+        this.quantity = quantiy;
     }
 
     public Double getPrice() {
@@ -57,6 +56,10 @@ public class OrderItem implements Serializable {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public Double getSubTotal() {
+        return price * quantity;
     }
 
     @Override
